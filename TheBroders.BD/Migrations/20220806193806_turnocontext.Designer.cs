@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBroders.BD.DATA;
 
@@ -11,9 +12,10 @@ using TheBroders.BD.DATA;
 namespace TheBroders.BD.Migrations
 {
     [DbContext(typeof(BDtc))]
-    partial class BDtcModelSnapshot : ModelSnapshot
+    [Migration("20220806193806_turnocontext")]
+    partial class turnocontext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

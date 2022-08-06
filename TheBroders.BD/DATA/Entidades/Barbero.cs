@@ -9,7 +9,7 @@ namespace TheBroders.BD.DATA.Entidades
 {
     public class Barbero : EntytyBase 
     {
-        [Required]
+        [Required(ErrorMessage =" Campo obligatorio ")]
         [MaxLength(30,ErrorMessage ="El nombre no puede tener mas de {1} caracteres")]
         public string Nombre { get; set; }
     }
