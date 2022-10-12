@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using TheBroders.BD.DATA;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +13,14 @@ var conn = builder.Configuration.GetConnectionString("conn");
 builder.Services.AddDbContext<BDtc>(opciones =>
 
 opciones.UseSqlServer(conn));
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BDtc", Version = "v1" });
+});
 var app = builder.Build();
-
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
+    "The Brothers v1"));
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

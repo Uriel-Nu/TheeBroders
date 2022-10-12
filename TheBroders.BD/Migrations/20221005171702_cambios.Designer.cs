@@ -11,8 +11,8 @@ using TheBroders.BD.DATA;
 namespace TheBroders.BD.Migrations
 {
     [DbContext(typeof(BDtc))]
-    [Migration("20220806184753_recepcionistamens")]
-    partial class recepcionistamens
+    [Migration("20221005171702_cambios")]
+    partial class cambios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,24 +22,6 @@ namespace TheBroders.BD.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Barbero", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Barberos");
-                });
 
             modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Cliente", b =>
                 {
@@ -59,24 +41,6 @@ namespace TheBroders.BD.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Recepcionista", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Recepcionistas");
-                });
-
             modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Turno", b =>
                 {
                     b.Property<int>("ID")
@@ -84,6 +48,9 @@ namespace TheBroders.BD.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("ClienteID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Hora")
                         .IsRequired()
@@ -102,7 +69,25 @@ namespace TheBroders.BD.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ClienteID");
+
                     b.ToTable("Turnos");
+                });
+
+            modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Turno", b =>
+                {
+                    b.HasOne("TheBroders.BD.DATA.Entidades.Cliente", "Cliente")
+                        .WithMany("turnos")
+                        .HasForeignKey("ClienteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("TheBroders.BD.DATA.Entidades.Cliente", b =>
+                {
+                    b.Navigation("turnos");
                 });
 #pragma warning restore 612, 618
         }

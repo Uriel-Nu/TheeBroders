@@ -12,13 +12,12 @@ namespace TheBroders.BD.DATA
 
     {
         public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Recepcionista>Recepcionistas { get; set; }
-        public DbSet<Barbero> Barberos { get; set; }
+       
+       
         public DbSet<Turno> Turnos { get; set; }
-        public DbSet<Turno> turno { get; set; }
-
+       
         public BDtc(DbContextOptions options) : base(options)
         {
         }
     }
-}
+} 

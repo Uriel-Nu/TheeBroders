@@ -22,7 +22,10 @@ namespace TheBroders.BD.DATA.Entidades
         [Required(ErrorMessage = "Campo obligatorio")]
         [MaxLength(30, ErrorMessage = "La Hora no puede tener mas de {1} caracteres")]
         public string Hora { get; set; }
-        public List<Turno>GenerarTurnos { get; set; }
+
+        public int ClienteID { get; set; }
+        public Cliente Cliente { get; set; }
+
 
     }
 }
