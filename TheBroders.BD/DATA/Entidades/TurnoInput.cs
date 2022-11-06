@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace TheBroders.BD.DATA.Entidades
 {
-    public class Turno
+    public class TurnoInput
     {
-        //[Required(ErrorMessage = "Campo obligatorio")]
-        //[MaxLength(30, ErrorMessage = "El nombre no puede tener mas de {1} caracteres")]
-        //public string NombreCliente { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         [MaxLength(30, ErrorMessage = "La fecha no puede tener mas de {1} caracteres")]
@@ -22,11 +19,5 @@ namespace TheBroders.BD.DATA.Entidades
         public string Hora { get; set; }
 
         public int ClienteID { get; set; }
-
-        public Cliente Cliente { get; set; }
-
-        public int ID { get; set; }
-
-
     }
 }

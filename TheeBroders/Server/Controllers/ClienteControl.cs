@@ -6,7 +6,7 @@ using TheBroders.BD.DATA.Entidades;
 namespace TheeBroders.Server.Controllers
 {
     [ApiController]
-    [Route("Api/[controller]")]
+    [Route("api/cliente")]
     public class ClienteController : ControllerBase
     {
         private readonly BDtc context;

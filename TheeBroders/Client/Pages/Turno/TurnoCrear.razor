@@ -1,0 +1,31 @@
+﻿@page "/Turnos/Crear"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+
+
+<h3 style="text-align:center">Nuevo turno</h3>
+<FormTurno turnoInput="turnoInput" onCancel="Cancelar" onValidSubmit="Grabar" /> 
+
+
+@code {
+    private TurnoInput turnoInput = new TurnoInput();
+
+    private async void Grabar()
+    {
+
+        var respuesta = await http.Post<TurnoInput>("api/Turnos", turnoInput);
+
+        if (respuesta.Error)
+        {
+            var body = respuesta.HttpResponseMessage;
+
+        }
+        navigationManager.NavigateTo("/Turnos");
+    }
+    
+    private  void Cancelar()
+    {
+        navigationManager.NavigateTo("/Turnos");
+    }    
+    
+}

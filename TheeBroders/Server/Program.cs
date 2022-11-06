@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 using TheBroders.BD.DATA;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ var conn = builder.Configuration.GetConnectionString("conn");
 builder.Services.AddDbContext<BDtc>(opciones =>
 
 opciones.UseSqlServer(conn));
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "BDtc", Version = "v1" });

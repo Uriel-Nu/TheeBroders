@@ -6,20 +6,21 @@ using TheBroders.BD.DATA.Entidades;
 namespace TheeBroders.Server.Controllers
 {
     [ApiController]
-    [Route("Api/[controller]")]
+    [Route("api/Turnos")]
 
     public class TurnosController : ControllerBase
     {
         private readonly BDtc context;
+
         public TurnosController(BDtc context)
         {
             this.context = context;
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<ActionResult<List<Turno>>> Get()
         {
-            var resp = await context.Turnos.ToListAsync();
+            var resp = await context.Turnos.Include(x =>x.Cliente).ToListAsync();
             return resp;
         }
 
@@ -28,7 +29,7 @@ namespace TheeBroders.Server.Controllers
         {
             var Turno = await context.Turnos
                                          .Where(e => e.ID == ID)
-                                         .Include(m => m.ClienteID)
+                                         .Include(m => m.Cliente)
                                          .FirstOrDefaultAsync();
             if (Turno == null)
             {
@@ -38,18 +39,22 @@ namespace TheeBroders.Server.Controllers
         }
 
         [HttpPost]
-
-        public async Task<ActionResult<int>> Post(Turno Turno)
+        public async Task<ActionResult<int>> Post(TurnoInput turnoInput)
         {
             try
             {
-                context.Turnos.Add(Turno);
-                await context.SaveChangesAsync();
-                return Turno.ID;
+                Turno turno = new Turno();
+                turno.fecha = turnoInput.fecha;
+                turno.Hora = turnoInput.Hora;
+                turno.ClienteID = turnoInput.ClienteID; 
+
+                context.Turnos.Add(turno);
+                await context.SaveChangesAsync(); 
+                return turno.ID;
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(e.GetBaseException+e.Message);
             }
             [HttpPost]
 
@@ -65,14 +70,21 @@ namespace TheeBroders.Server.Controllers
                 {
                     return BadRequest(e.Message);
                 }
-                
+                 
 
 
 
                 }
             }
+       
+
+
+
+
+            }
         }
-    }
+    
+    
 
     
 

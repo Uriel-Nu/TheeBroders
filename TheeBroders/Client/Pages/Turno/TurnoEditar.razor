@@ -1,0 +1,24 @@
+﻿@page "/Turnos/Editar"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+
+<h3>Nuevo turno</h3>
+
+<FormTurno turno="turno"  onCancel="Cancelar" onValidSubmit="Grabar">
+
+</FormTurno>
+
+@code {
+    private Turno turno = new Turno();
+
+    private void Grabar()
+    {
+
+    }
+    
+    private void Cancelar()
+    {
+
+    }
+
+}
